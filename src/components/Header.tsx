@@ -5,7 +5,7 @@ export default function Header() {
     <header className="p-4 flex gap-4 bg-white text-black justify-between shadow-sm">
       <nav className="flex flex-row items-center gap-6">
         <div className="font-bold text-blue-600">
-          <Link to="/">Limo HealthCare</Link>
+          <Link to="/">Limo EMR</Link>
         </div>
         <div className="flex gap-4">
           <Link 
