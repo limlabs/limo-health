@@ -17,16 +17,31 @@ export function useAppointments() {
   })
 }
 
+function generateUniqueId(existingIds: string[]): string {
+  const timestamp = Date.now()
+  let id = `apt${timestamp}`
+  let counter = 1
+  
+  while (existingIds.includes(id)) {
+    id = `apt${timestamp}_${counter}`
+    counter++
+  }
+  
+  return id
+}
+
 export function useCreateAppointment() {
   const queryClient = useQueryClient()
   
   return useMutation({
     mutationFn: async (appointment: Omit<Appointment, 'id'>) => {
+      const currentAppointments = await readAppointments()
+      const existingIds = currentAppointments.map((apt: Appointment) => apt.id)
       const newAppointment = {
         ...appointment,
-        id: `apt${Date.now()}`
+        id: generateUniqueId(existingIds)
       }
-      await writeAppointments([newAppointment])
+      await writeAppointments([...currentAppointments, newAppointment])
       return newAppointment
     },
     onSuccess: () => {
@@ -41,8 +56,16 @@ export function useDeleteAppointment() {
   return useMutation({
     mutationFn: async (id: string) => {
       const appointments = await readAppointments()
-      const updatedAppointments = appointments.filter((apt: Appointment) => apt.id !== id)
+      // Remove all duplicates and then filter out the appointment to delete
+      const uniqueAppointments = appointments.reduce((acc: Appointment[], curr: Appointment) => {
+        if (!acc.some(apt => apt.id === curr.id)) {
+          acc.push(curr)
+        }
+        return acc
+      }, [])
+      const updatedAppointments = uniqueAppointments.filter((apt: Appointment) => apt.id !== id)
       await writeAppointments(updatedAppointments)
+      return id // Return the deleted ID
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['appointments'] })

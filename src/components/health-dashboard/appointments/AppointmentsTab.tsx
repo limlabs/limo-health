@@ -50,37 +50,38 @@ export function AppointmentsTab() {
           sortedAppointments.map((appointment) => (
             <div
               key={appointment.id}
-              className="flex items-start gap-4 p-4 bg-white rounded-lg border shadow-sm relative"
-            >
-              <button
-                onClick={() => handleDeleteAppointment(appointment.id)}
-                className="absolute top-4 right-4 p-1.5 rounded-full text-gray-400 hover:text-red-600 hover:bg-red-50 transition-colors"
-                title="Delete appointment"
-              >
-                <X className="h-4 w-4" />
-              </button>
-              <div className="p-2 bg-blue-100 rounded-full">
-                <Calendar className="h-6 w-6 text-blue-600" />
-              </div>
-              <div className="flex-1 min-w-0">
-                <div className="flex justify-between items-start">
-                  <div>
-                    <h3 className="font-medium text-gray-900">
-                      Dr. {appointment.doctorName}
-                    </h3>
-                    <p className="text-sm text-gray-500">{appointment.specialty}</p>
-                  </div>
-                  <div className="text-right">
-                    <p className="font-medium">
-                      {new Date(appointment.date).toLocaleDateString()}
-                    </p>
-                    <p className="text-sm text-gray-500">{appointment.time}</p>
-                  </div>
+              className="flex items-start gap-4 p-4 bg-white rounded-lg border shadow-sm">
+                <div className="p-2 bg-blue-100 rounded-full">
+                  <Calendar className="h-6 w-6 text-blue-600" />
                 </div>
-                {appointment.notes && (
-                  <p className="mt-2 text-sm text-gray-600">{appointment.notes}</p>
-                )}
-              </div>
+                <div className="flex-1 min-w-0">
+                  <div className="flex justify-between items-start gap-4">
+                    <div>
+                      <h3 className="font-medium text-gray-900">
+                        Dr. {appointment.doctorName}
+                      </h3>
+                      <p className="text-sm text-gray-500">{appointment.specialty}</p>
+                    </div>
+                    <div className="flex items-start gap-4">
+                      <div className="text-right">
+                        <p className="font-medium">
+                          {new Date(appointment.date).toLocaleDateString()}
+                        </p>
+                        <p className="text-sm text-gray-500">{appointment.time}</p>
+                      </div>
+                      <button
+                        onClick={() => handleDeleteAppointment(appointment.id)}
+                        className="p-1.5 rounded-full text-gray-600 hover:text-red-600 hover:bg-red-50 transition-colors"
+                        title="Delete appointment"
+                      >
+                        <X className="h-4 w-4" />
+                      </button>
+                    </div>
+                  </div>
+                  {appointment.notes && (
+                    <p className="mt-2 text-sm text-gray-600">{appointment.notes}</p>
+                  )}
+                </div>
             </div>
           ))
         )}

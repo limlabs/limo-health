@@ -1,14 +1,5 @@
 [
   {
-    "id": "med1",
-    "name": "Lisinopril",
-    "dosage": "10mg",
-    "frequency": "Once daily",
-    "startDate": "2025-04-01",
-    "endDate": "2025-10-01",
-    "notes": "Take in the morning with food"
-  },
-  {
     "id": "med2",
     "name": "Metformin",
     "dosage": "500mg",
@@ -16,5 +7,14 @@
     "startDate": "2025-03-15",
     "endDate": "2025-09-15",
     "notes": "Take with meals"
+  },
+  {
+    "name": "Herbs and spices",
+    "dosage": "2 a day",
+    "frequency": "daily",
+    "startDate": "2025-04-15",
+    "endDate": "2025-05-01",
+    "notes": "",
+    "id": "med1745893995543"
   }
 ]

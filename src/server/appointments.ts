@@ -26,10 +26,9 @@ export async function getAppointments() {
 export async function saveAppointments(appointments: any[]) {
   await ensureFileExists()
   try {
-    const existingData = await getAppointments()
     await fs.writeFile(
       APPOINTMENTS_FILE,
-      JSON.stringify([...existingData, ...appointments], null, 2),
+      JSON.stringify(appointments, null, 2),
       'utf8'
     )
   } catch (error) {
