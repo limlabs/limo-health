@@ -1,0 +1,34 @@
+[
+  {
+    "id": "apt1",
+    "doctorName": "Sarah Johnson",
+    "specialty": "General Checkup",
+    "date": "2025-05-10",
+    "time": "10:00",
+    "notes": "Annual physical examination"
+  },
+  {
+    "id": "apt2",
+    "doctorName": "Michael Chen",
+    "specialty": "Cardiology",
+    "date": "2025-05-15",
+    "time": "14:00",
+    "notes": "Follow-up consultation"
+  },
+  {
+    "id": "apt3",
+    "doctorName": "Emily Rodriguez",
+    "specialty": "Dental Cleaning",
+    "date": "2025-05-28",
+    "time": "09:00",
+    "notes": ""
+  },
+  {
+    "doctorName": "Strange",
+    "specialty": "Magic Extraordinare",
+    "date": "2025-04-10",
+    "time": "08:34",
+    "notes": "",
+    "id": "apt1745890374446"
+  }
+]

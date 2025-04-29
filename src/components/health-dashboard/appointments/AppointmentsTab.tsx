@@ -1,55 +1,25 @@
 import * as React from 'react'
-import { Plus, Calendar } from 'lucide-react'
+import { Plus, Calendar, X } from 'lucide-react'
 import { AppointmentModal } from './AppointmentModal'
 
-interface Appointment {
-  id: string
-  doctorName: string
-  specialty: string
-  date: string
-  time: string
-  notes: string
-}
-
-const initialAppointments: Omit<Appointment, 'id'>[] = [
-  {
-    doctorName: 'Sarah Johnson',
-    specialty: 'General Checkup',
-    date: '2025-05-10',
-    time: '10:00',
-    notes: 'Annual physical examination'
-  },
-  {
-    doctorName: 'Michael Chen',
-    specialty: 'Cardiology',
-    date: '2025-05-15',
-    time: '14:00',
-    notes: 'Follow-up consultation'
-  },
-  {
-    doctorName: 'Emily Rodriguez',
-    specialty: 'Dental Cleaning',
-    date: '2025-05-28',
-    time: '09:00',
-    notes: ''
-  }
-]
+import type { Appointment } from '../../../utils/appointments'
+import { useAppointments, useCreateAppointment, useDeleteAppointment } from '../../../utils/appointments'
 
 export function AppointmentsTab() {
   const [isModalOpen, setIsModalOpen] = React.useState(false)
-  const [appointments, setAppointments] = React.useState<Appointment[]>(
-    initialAppointments.map((apt: Omit<Appointment, 'id'>) => ({
-      ...apt,
-      id: Math.random().toString(36).substring(7),
-    }))
-  )
+
+
+  const { data: appointments = [] } = useAppointments()
+  const { mutate: addAppointment } = useCreateAppointment()
+  const { mutate: removeAppointment } = useDeleteAppointment()
 
   const handleAddAppointment = (appointmentData: Omit<Appointment, 'id'>) => {
-    const newAppointment: Appointment = {
-      ...appointmentData,
-      id: Math.random().toString(36).substring(7),
-    }
-    setAppointments([...appointments, newAppointment])
+    addAppointment(appointmentData)
+    setIsModalOpen(false)
+  }
+
+  const handleDeleteAppointment = (id: string) => {
+    removeAppointment(id)
   }
 
   const sortedAppointments = [...appointments].sort((a, b) => {
@@ -80,8 +50,15 @@ export function AppointmentsTab() {
           sortedAppointments.map((appointment) => (
             <div
               key={appointment.id}
-              className="flex items-start gap-4 p-4 bg-white rounded-lg border shadow-sm"
+              className="flex items-start gap-4 p-4 bg-white rounded-lg border shadow-sm relative"
             >
+              <button
+                onClick={() => handleDeleteAppointment(appointment.id)}
+                className="absolute top-4 right-4 p-1.5 rounded-full text-gray-400 hover:text-red-600 hover:bg-red-50 transition-colors"
+                title="Delete appointment"
+              >
+                <X className="h-4 w-4" />
+              </button>
               <div className="p-2 bg-blue-100 rounded-full">
                 <Calendar className="h-6 w-6 text-blue-600" />
               </div>

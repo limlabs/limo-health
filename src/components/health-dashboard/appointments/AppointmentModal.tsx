@@ -82,8 +82,9 @@ export function AppointmentModal({ isOpen, onClose, onSubmit }: AppointmentModal
               id="date"
               value={formData.date}
               onChange={(e) => setFormData({ ...formData, date: e.target.value })}
-              className="mt-1 block w-full rounded-md border-blue-400 bg-blue-50 ring-1 ring-gray-200 shadow-sm focus:border-blue-200 focus:ring-blue-200"
+              className="mt-1 block w-full rounded-md border-blue-400 bg-blue-50 ring-1 ring-gray-200 shadow-sm focus:border-blue-200 focus:ring-blue-200 cursor-pointer"
               required
+              onClick={(e) => (e.currentTarget as HTMLInputElement).showPicker()}
             />
           </div>
           <div>
@@ -95,8 +96,9 @@ export function AppointmentModal({ isOpen, onClose, onSubmit }: AppointmentModal
               id="time"
               value={formData.time}
               onChange={(e) => setFormData({ ...formData, time: e.target.value })}
-              className="mt-1 block w-full rounded-md border-blue-400 bg-blue-50 ring-1 ring-gray-200 shadow-sm focus:border-blue-200 focus:ring-blue-200"
+              className="mt-1 block w-full rounded-md border-blue-400 bg-blue-50 ring-1 ring-gray-200 shadow-sm focus:border-blue-200 focus:ring-blue-200 cursor-pointer"
               required
+              onClick={(e) => (e.currentTarget as HTMLInputElement).showPicker()}
             />
           </div>
           <div>

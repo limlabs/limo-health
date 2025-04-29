@@ -2,55 +2,44 @@ import * as React from 'react'
 import { Plus, Pill, X } from 'lucide-react'
 import { MedicationModal } from './MedicationModal'
 
-interface Medication {
-  id: string
-  name: string
-  dosage: string
-  frequency: string
-  startDate: string
-  endDate: string
-  notes: string
-}
 
-const initialMedications: Omit<Medication, 'id'>[] = [
-  {
-    name: 'Lisinopril',
-    dosage: '10mg',
-    frequency: 'Once daily',
-    startDate: '2025-04-01',
-    endDate: '2025-10-01',
-    notes: 'Take in the morning with food'
-  },
-  {
-    name: 'Metformin',
-    dosage: '500mg',
-    frequency: 'Twice daily',
-    startDate: '2025-03-15',
-    endDate: '2025-09-15',
-    notes: 'Take with meals'
-  }
-]
+
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
+import { readMedications, writeMedications } from '../../../api/medications'
 
 export function MedicationsTab() {
   const [isModalOpen, setIsModalOpen] = React.useState(false)
-  const [medications, setMedications] = React.useState<Medication[]>(
-    initialMedications.map((med: Omit<Medication, 'id'>) => ({
-      ...med,
-      id: Math.random().toString(36).substring(7),
-    }))
-  )
+  const queryClient = useQueryClient()
 
-  const handleAddMedication = (medicationData: Omit<Medication, 'id'>) => {
-    const newMedication: Medication = {
-      ...medicationData,
-      id: Math.random().toString(36).substring(7),
+  const { data: medications = [] } = useQuery({
+    queryKey: ['medications'],
+    queryFn: readMedications
+  })
+
+  const { mutate: addMedication } = useMutation({
+    mutationFn: async (medicationData: { name: string; dosage: string; frequency: string; startDate: string; endDate: string; notes: string }) => {
+      const newMedication = {
+        ...medicationData,
+        id: `med${Date.now()}`
+      }
+      await writeMedications([...medications, newMedication])
+      return newMedication
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['medications'] })
+      setIsModalOpen(false)
     }
-    setMedications([...medications, newMedication])
-  }
+  })
 
-  const handleDeleteMedication = (id: string) => {
-    setMedications(medications.filter(med => med.id !== id))
-  }
+  const { mutate: deleteMedication } = useMutation({
+    mutationFn: async (medication: { id: string }) => {
+      const updatedMedications = medications.filter((m: { id: string }) => m.id !== medication.id)
+      await writeMedications(updatedMedications)
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['medications'] })
+    }
+  })
 
   const sortedMedications = [...medications].sort((a, b) => {
     const dateA = new Date(a.startDate)
@@ -83,7 +72,7 @@ export function MedicationsTab() {
               className="flex items-start gap-4 p-6 bg-white rounded-lg border shadow-sm relative"
             >
               <button
-                onClick={() => handleDeleteMedication(medication.id)}
+                onClick={() => deleteMedication(medication)}
                 className="absolute top-4 right-4 p-1.5 rounded-full text-gray-400 hover:text-red-600 hover:bg-red-50 transition-colors"
                 title="Delete medication"
               >
@@ -121,7 +110,7 @@ export function MedicationsTab() {
       <MedicationModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
-        onSubmit={handleAddMedication}
+        onSubmit={addMedication}
       />
     </div>
   )
