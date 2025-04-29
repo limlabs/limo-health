@@ -29,6 +29,13 @@ export default function Header() {
           >
             Medical Records
           </Link>
+          <Link
+            to="/limo-chat"
+            className="text-gray-600 hover:text-blue-600 transition-colors"
+            activeProps={{ className: 'text-blue-600 font-medium' }}
+          >
+            <img src="/machineIcon.png" alt="Machine Icon" className="w-6 h-6" />
+          </Link>
         </div>
       </nav>
     </header>

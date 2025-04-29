@@ -16,5 +16,14 @@
     "endDate": "2025-05-01",
     "notes": "",
     "id": "med1745893995543"
+  },
+  {
+    "name": "Green Tea",
+    "dosage": "3",
+    "frequency": "Daily",
+    "startDate": "2025-04-22",
+    "endDate": "2025-11-07",
+    "notes": "Buy only from botanic pharmacies",
+    "id": "med1745950068764"
   }
 ]

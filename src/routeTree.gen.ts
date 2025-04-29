@@ -13,6 +13,7 @@
 import { Route as rootRoute } from './routes/__root'
 import { Route as MedicationsImport } from './routes/medications'
 import { Route as MedicalRecordsImport } from './routes/medical-records'
+import { Route as LimoChatImport } from './routes/limo-chat'
 import { Route as AppointmentsImport } from './routes/appointments'
 import { Route as IndexImport } from './routes/index'
 
@@ -27,6 +28,12 @@ const MedicationsRoute = MedicationsImport.update({
 const MedicalRecordsRoute = MedicalRecordsImport.update({
   id: '/medical-records',
   path: '/medical-records',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const LimoChatRoute = LimoChatImport.update({
+  id: '/limo-chat',
+  path: '/limo-chat',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -60,6 +67,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppointmentsImport
       parentRoute: typeof rootRoute
     }
+    '/limo-chat': {
+      id: '/limo-chat'
+      path: '/limo-chat'
+      fullPath: '/limo-chat'
+      preLoaderRoute: typeof LimoChatImport
+      parentRoute: typeof rootRoute
+    }
     '/medical-records': {
       id: '/medical-records'
       path: '/medical-records'
@@ -82,6 +96,7 @@ declare module '@tanstack/react-router' {
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/appointments': typeof AppointmentsRoute
+  '/limo-chat': typeof LimoChatRoute
   '/medical-records': typeof MedicalRecordsRoute
   '/medications': typeof MedicationsRoute
 }
@@ -89,6 +104,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/appointments': typeof AppointmentsRoute
+  '/limo-chat': typeof LimoChatRoute
   '/medical-records': typeof MedicalRecordsRoute
   '/medications': typeof MedicationsRoute
 }
@@ -97,22 +113,35 @@ export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
   '/appointments': typeof AppointmentsRoute
+  '/limo-chat': typeof LimoChatRoute
   '/medical-records': typeof MedicalRecordsRoute
   '/medications': typeof MedicationsRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/appointments' | '/medical-records' | '/medications'
+  fullPaths:
+    | '/'
+    | '/appointments'
+    | '/limo-chat'
+    | '/medical-records'
+    | '/medications'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/appointments' | '/medical-records' | '/medications'
-  id: '__root__' | '/' | '/appointments' | '/medical-records' | '/medications'
+  to: '/' | '/appointments' | '/limo-chat' | '/medical-records' | '/medications'
+  id:
+    | '__root__'
+    | '/'
+    | '/appointments'
+    | '/limo-chat'
+    | '/medical-records'
+    | '/medications'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AppointmentsRoute: typeof AppointmentsRoute
+  LimoChatRoute: typeof LimoChatRoute
   MedicalRecordsRoute: typeof MedicalRecordsRoute
   MedicationsRoute: typeof MedicationsRoute
 }
@@ -120,6 +149,7 @@ export interface RootRouteChildren {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AppointmentsRoute: AppointmentsRoute,
+  LimoChatRoute: LimoChatRoute,
   MedicalRecordsRoute: MedicalRecordsRoute,
   MedicationsRoute: MedicationsRoute,
 }
@@ -136,6 +166,7 @@ export const routeTree = rootRoute
       "children": [
         "/",
         "/appointments",
+        "/limo-chat",
         "/medical-records",
         "/medications"
       ]
@@ -145,6 +176,9 @@ export const routeTree = rootRoute
     },
     "/appointments": {
       "filePath": "appointments.tsx"
+    },
+    "/limo-chat": {
+      "filePath": "limo-chat.tsx"
     },
     "/medical-records": {
       "filePath": "medical-records.tsx"
