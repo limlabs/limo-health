@@ -6,7 +6,7 @@ To run this application:
 
 ```bash
 bun install
-bun run start  
+bun run start-all
 ```
 
 # Building For Production
