@@ -1,4 +1,6 @@
-Welcome to your new TanStack app! 
+Welcome limo-health
+
+This application currently loads data from two json files: /src/data/medications.json and /src/data/appointments.json
 
 # Getting Started
 
