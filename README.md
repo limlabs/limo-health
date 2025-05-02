@@ -47,6 +47,10 @@ Add components using the latest version of [Shadcn](https://ui.shadcn.com/).
 pnpx shadcn@latest add button
 ```
 
+## Encryption
+This project uses [AES-256-CBC](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard) for encryption. The encryption key is stored in the `.env` file.
+with a keyname ENCRYPTION_KEY
+
 
 
 ## Routing
