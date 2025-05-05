@@ -30,7 +30,7 @@ export function AppointmentsTab() {
 
   return (
     <div className="">
-      <div className="flex justify-between items-center">
+      <div className="flex justify-between items-center mb-4">
         <h2 className="text-2xl font-semibold">Upcoming Appointments</h2>
         <button
           onClick={() => setIsModalOpen(true)}
