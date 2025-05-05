@@ -48,7 +48,7 @@ export function MedicationsTab() {
   })
 
   return (
-    <div className="space-y-6">
+    <div className="">
       <div className="flex justify-between items-center">
         <h2 className="text-2xl font-semibold">Medication Schedule</h2>
         <button
