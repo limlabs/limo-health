@@ -18,14 +18,14 @@ bun run start-all
 ```
 
 
-## Production
-# Build the image
+# Production
+## Build the image
 docker build -t limo-health .
 
-# Start a new container
+## Start a new container
 docker run -p 5173:5173 -p 5174:5174 --name limo-health-container limo-health
 
-# If the container exists from previouse usage remove the existing container
+## If the container exists from previouse usage remove the existing container
 docker rm -f limo-health-container
 
 
