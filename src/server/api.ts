@@ -6,6 +6,11 @@ import { getMedications, saveMedications } from './medications'
 const app = express()
 app.use(express.json())
 
+// Health check endpoint
+app.get('/', (_req: Request, res: Response) => {
+  res.json({ status: 'ok', message: 'API is running' })
+})
+
 // Enable CORS
 app.use((_req: Request, res: Response, next: NextFunction) => {
   res.header('Access-Control-Allow-Origin', '*')
