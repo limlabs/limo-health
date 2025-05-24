@@ -1,5 +1,5 @@
 import type { Plugin } from 'vite'
-import { getAppointments, saveAppointments } from './appointments'
+import { getAppointments, saveAppointments } from './appointments.js'
 
 export function appointmentsPlugin(): Plugin {
   console.log('[APPOINTMENTS] Creating plugin...')
