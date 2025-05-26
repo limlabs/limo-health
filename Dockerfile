@@ -21,7 +21,7 @@ RUN echo "Building client and server..." && \
     ls -la /app/dist
 
 # Production stage
-FROM oven/bun:1.2.4-slim
+FROM public.ecr.aws/coloop/oven/bun:latest
 
 WORKDIR /app
 
