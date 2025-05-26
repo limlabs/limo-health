@@ -1,5 +1,6 @@
 # Stage 1: Build the application
-FROM oven/bun:1.2.4-slim AS builder
+FROM public.ecr.aws/coloop/oven/bun:latest AS builder
+
 
 WORKDIR /app
 
