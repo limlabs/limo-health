@@ -13,8 +13,8 @@ and
 To run this application:
 
 ```bash
-bun install
-bun run start-all
+npm install
+npm run start-all
 ```
 
 
@@ -23,7 +23,7 @@ bun run start-all
 docker build -t limo-health .
 
 ## Start a new container
-docker run -p 5173:5173 -p 5174:5174 --name limo-health-container limo-health
+docker run -p 3000:3000 --name limo-health-container limo-health
 
 ## If the container exists from previouse usage remove the existing container
 docker rm -f limo-health-container
@@ -34,7 +34,7 @@ docker rm -f limo-health-container
 To build this application for production:
 
 ```bash
-bun run build
+npm run build
 ```
 
 ## Testing
@@ -42,7 +42,7 @@ bun run build
 This project uses [Vitest](https://vitest.dev/) for testing. You can run the tests with:
 
 ```bash
-bun run test
+npm run test
 ```
 
 ## Styling

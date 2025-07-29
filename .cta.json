@@ -3,7 +3,7 @@
   "projectName": "app",
   "typescript": true,
   "tailwind": true,
-  "packageManager": "bun",
+  "packageManager": "npm",
   "toolchain": "none",
   "mode": "file-router",
   "git": true,

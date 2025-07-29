@@ -4,6 +4,7 @@ import { getAppointments, saveAppointments } from './appointments.js'
 import { getMedications, saveMedications } from './medications.js'
 import { createServer } from 'http'
 import fs from 'fs'
+import { execSync } from 'child_process'
 
 const app = express()
 const server = createServer(app)
@@ -32,7 +33,7 @@ console.log(`Serving static files from: ${distPath}`)
 
 // Log directory contents for debugging
 console.log('Directory contents:')
-require('child_process').execSync('ls -la', { stdio: 'inherit' })
+execSync('ls -la', { stdio: 'inherit' })
 
 // API routes must be defined before the static file serving
 app.get('/api/health', (_req: Request, res: Response) => {

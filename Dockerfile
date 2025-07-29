@@ -1,33 +1,32 @@
 # Stage 1: Build the application
-FROM public.ecr.aws/coloop/oven/bun:latest AS builder
-
+FROM node:20-alpine AS builder
 
 WORKDIR /app
 
 # Copy package files first for better layer caching
-COPY package.json bun.lock ./
+COPY package.json package-lock.json* ./
 
 # Install all dependencies (including devDependencies) for building
-RUN bun install
+RUN npm ci
 
 # Copy the rest of the application
 COPY . .
 
 # Build the application
 RUN echo "Building client and server..." && \
-    bun run build:client && \
-    bun run build:server && \
+    npm run build:client && \
+    npm run build:server && \
     echo "Build completed. Contents of /app/dist:" && \
     ls -la /app/dist
 
 # Production stage
-FROM public.ecr.aws/coloop/oven/bun:latest
+FROM node:20-alpine
 
 WORKDIR /app
 
 # Install production dependencies only
-COPY package.json bun.lock ./
-RUN bun install --production
+COPY package.json package-lock.json* ./
+RUN npm ci --only=production
 
 # Copy built files from builder
 COPY --from=builder /app/dist ./dist
