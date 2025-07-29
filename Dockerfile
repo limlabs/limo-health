@@ -1,5 +1,5 @@
 # Stage 1: Build the application
-FROM node:20-alpine AS builder
+FROM public.ecr.aws/docker/library/node:20-alpine AS builder
 
 WORKDIR /app
 
@@ -20,7 +20,7 @@ RUN echo "Building client and server..." && \
     ls -la /app/dist
 
 # Production stage
-FROM node:20-alpine
+FROM public.ecr.aws/docker/library/node:20-alpine
 
 WORKDIR /app
 
